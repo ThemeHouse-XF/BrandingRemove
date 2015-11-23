@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_BrandingRemove" title="[⌂] Branding Removal" version_string="1.0.1" version_id="1447261019" url="http://xf.themehouse.io" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners/>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases/>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="footer" modification_key="th_copyrightNoticeRemoval" description="Removes branding from [⌂] Add-ons" execution_order="0" enabled="1" action="preg_replace">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[<xen:set var="$thCopyrightShown">1</xen:set>
+<xen:set var="$waindigoCopyrightShown">1</xen:set>
+<xen:set var="$adCopyrightShown">1</xen:set>
+$0]]></replace>
+    </modification>
+    <modification template="footer" modification_key="th_copyrightNotice_brandingRemoval" description="Copyright notice for [⌂] Branding Removal" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+    <modification template="footer" modification_key="th_copyrightNotice_brandingRemove" description="Copyright notice for [⌂] Branding Removal" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+    <modification template="page_container_js_head" modification_key="th_page_container_js_head_brandingremoval" description="" execution_order="1" enabled="0" action="str_replace">
+      <find><![CDATA[<!--XenForo_Require:JS-->]]></find>
+      <replace><![CDATA[$0
+<style>
+#waindigoCopyrightNotice,
+#adCopyrightNotice,
+#thCopyrightNotice {
+    display: none;
+}
+</style>]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
